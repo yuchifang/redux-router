@@ -9,7 +9,7 @@ import {
 } from "./actionType"
 export const GetPokemonListAction = (page) => async dispatch => {
     //試試用then catch 方式
-
+    console.log("Eee")
     try {
         dispatch({
             type: POKEMON_LIST_LOADING
