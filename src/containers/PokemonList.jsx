@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import _ from "lodash"
-import { GetPokemonList } from '../store/actions/pokemonAction'
-
+import { GetPokemonListAction } from '../store/actions/pokemonAction'
+import { Link } from "react-router-dom"
 
 export const PokemonList = () => {
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ export const PokemonList = () => {
     useEffect(() => {
 
         const FetchData = (page = 1) => {
-            dispatch(GetPokemonList(page))
+            dispatch(GetPokemonListAction(page))
         }
 
         FetchData(1)
@@ -25,7 +25,17 @@ export const PokemonList = () => {
 
         if (!_.isEmpty(pokemonList.data)) {
 
-            return <p>have data</p>
+            return (
+                <div className={"list-wrapper"}>
+                    {pokemonList.data.map((element) => (
+                        <div className={"pokemon-item"}>
+                            <p>{element.name}</p>
+                            <Link to={`/pokemon/${element.name}`}>View</Link>
+                        </div>
+                    ))}
+                </div>
+            )
+
         } else if (pokemonList.status === "loading") {
 
             return <p>Loading</p>
@@ -39,6 +49,11 @@ export const PokemonList = () => {
 
     return (
         <>
+            <div className="search-wrapper">
+                <p>Search:</p>
+                <input type="text" />
+                <button>Search</button>
+            </div>
             {ShowDataRender()}
         </>
     );

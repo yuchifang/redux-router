@@ -3,7 +3,8 @@ import { POKEMON_LIST_LOADING, POKEMON_LIST_SUCCESS, POKEMON_LIST_FAIL } from ".
 const DefaultState = {
     status: "idle",
     data: [],
-    errorMsg: ""
+    errorMsg: "",
+    count: 0
 }
 
 
@@ -20,7 +21,9 @@ const PokemonListReducer = (state = DefaultState, action) => {
                 ...state,
                 status: "success",
                 errorMsg: "",
-                data: action.payload
+                data: action.payload.results,
+                count: action.payload.count
+
             }
         case POKEMON_LIST_FAIL:
             return {
